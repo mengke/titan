@@ -535,8 +535,8 @@ final class ByteStringBuilder extends mutable.Builder[Byte, ByteString] {
   @inline protected final def fillByteBuffer(len: Int, byteOrder: ByteOrder)(fill: ByteBuf ⇒ Unit): this.type = {
     fillArray(len) {
       case (array, start) ⇒
-        val buffer = Unpooled.wrappedBuffer(array, start, len)
-        buffer.order(byteOrder)
+        var buffer = Unpooled.wrappedBuffer(array, start, len)
+        buffer = buffer.order(byteOrder)
         fill(buffer)
     }
   }
